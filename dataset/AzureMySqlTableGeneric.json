@@ -1,0 +1,23 @@
+{
+	"name": "AzureMySqlTableGeneric",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureMySqlSakila",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"TableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureMySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": {
+				"value": "@dataset().TableName",
+				"type": "Expression"
+			}
+		}
+	}
+}

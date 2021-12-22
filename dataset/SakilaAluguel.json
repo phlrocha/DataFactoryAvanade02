@@ -1,5 +1,5 @@
 {
-	"name": "Parquet2",
+	"name": "SakilaAluguel",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureDataLakeStorage1",

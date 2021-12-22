@@ -1,0 +1,31 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "SakilaAluguel",
+						"type": "DatasetReference"
+					},
+					"name": "sourceAluguel"
+				},
+				{
+					"dataset": {
+						"referenceName": "SakilaCliente",
+						"type": "DatasetReference"
+					},
+					"name": "sourceCliente"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "Join1"
+				}
+			],
+			"script": "source(output(\n\t\taluguel_id as integer,\n\t\tdata_de_aluguel as timestamp,\n\t\tinventario_id as integer,\n\t\tcliente_id as integer,\n\t\tdata_de_devolucao as timestamp,\n\t\tfuncionario_id as byte,\n\t\tultima_atualizacao as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> sourceAluguel\nsource(output(\n\t\tcliente_id as integer,\n\t\tloja_id as byte,\n\t\tprimeiro_nome as string,\n\t\tultimo_nome as string,\n\t\temail as string,\n\t\tendereco_id as integer,\n\t\tativo as boolean,\n\t\tdata_criacao as timestamp,\n\t\tultima_atualizacao as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet') ~> sourceCliente\nsourceAluguel, sourceCliente join(sourceAluguel@cliente_id == sourceCliente@cliente_id,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> Join1"
+		}
+	}
+}

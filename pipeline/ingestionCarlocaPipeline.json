@@ -93,60 +93,6 @@
 											"value": "@item().table_schema",
 											"type": "Expression"
 										},
-										"File": "@concat(item().table_name,'.parquet')"
-									}
-								}
-							]
-						},
-						{
-							"name": "ExportTableDL_copy1",
-							"type": "Copy",
-							"dependsOn": [],
-							"policy": {
-								"timeout": "7.00:00:00",
-								"retry": 0,
-								"retryIntervalInSeconds": 30,
-								"secureOutput": false,
-								"secureInput": false
-							},
-							"userProperties": [],
-							"typeProperties": {
-								"source": {
-									"type": "MySqlSource"
-								},
-								"sink": {
-									"type": "JsonSink",
-									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
-									},
-									"formatSettings": {
-										"type": "JsonWriteSettings"
-									}
-								},
-								"enableStaging": false
-							},
-							"inputs": [
-								{
-									"referenceName": "MySqlTableGeneric",
-									"type": "DatasetReference",
-									"parameters": {
-										"TableName": {
-											"value": "@item().table_name",
-											"type": "Expression"
-										}
-									}
-								}
-							],
-							"outputs": [
-								{
-									"referenceName": "Json1",
-									"type": "DatasetReference",
-									"parameters": {
-										"Container": "ingestion",
-										"Folder": {
-											"value": "@item().table_schema",
-											"type": "Expression"
-										},
 										"File": "@concat(item().table_name,'.json')"
 									}
 								}
